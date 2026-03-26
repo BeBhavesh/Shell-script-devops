@@ -1,0 +1,244 @@
+# 🚀 Advanced Shell Scripting for DevOps (Real-World Patterns)
+
+This repository contains **practical Bash scripting patterns** used in real DevOps workflows such as automation, deployment, monitoring, and CI/CD.
+
+---
+
+## 🔥 1. Safe Script Start (Best Practice)
+
+```bash
+#!/bin/bash
+
+set -euo pipefail
+IFS=$'\n\t'
+```
+
+---
+
+## 📢 2. Logging
+
+```bash
+echo "[INFO] Starting script..."
+echo "[ERROR] Something failed" >&2
+```
+
+---
+
+## 🎯 3. Default Variable Values
+
+```bash
+name="${1:-Guest}"
+```
+
+---
+
+## 🛠️ 4. Check if Command Exists
+
+```bash
+command -v docker >/dev/null || {
+  echo "Docker not installed"
+  exit 1
+}
+```
+
+---
+
+## 🔀 5. Multi-condition If
+
+```bash
+if [[ -f file.txt && -r file.txt ]]
+then
+  echo "Readable file"
+fi
+```
+
+---
+
+## 🔢 6. Numeric Comparison
+
+```bash
+if (( count > 10 ))
+then
+  echo "Greater"
+fi
+```
+
+---
+
+## 📂 7. Safe File Loop
+
+```bash
+for file in *.log; do
+  [[ -e "$file" ]] || continue
+  echo "$file"
+done
+```
+
+---
+
+## 📖 8. Read File Line by Line
+
+```bash
+while read -r line
+do
+  echo "$line"
+done < file.txt
+```
+
+---
+
+## 🔁 9. Infinite Loop (Watcher Script)
+
+```bash
+while true
+do
+  echo "Running..."
+  sleep 5
+done
+```
+
+---
+
+## ⏳ 10. Wait for Service (DevOps Pattern)
+
+```bash
+until docker ps | grep myapp > /dev/null
+do
+  echo "Waiting for container..."
+  sleep 2
+done
+```
+
+---
+
+## ⚙️ 11. Functions with Return
+
+```bash
+check_service() {
+  ping -c 1 $1 > /dev/null
+  return $?
+}
+```
+
+---
+
+## 🧹 12. Trap (Cleanup Handling)
+
+```bash
+trap "echo 'Script stopped'; exit" SIGINT SIGTERM
+```
+
+---
+
+## 🗂️ 13. Temporary Files
+
+```bash
+tmpfile=$(mktemp)
+echo "data" > "$tmpfile"
+rm -f "$tmpfile"
+```
+
+---
+
+## 📦 14. Arrays
+
+```bash
+servers=("google.com" "github.com")
+
+for s in "${servers[@]}"
+do
+  echo "$s"
+done
+```
+
+---
+
+## ⚡ 15. Parallel Execution
+
+```bash
+sleep 2 &
+sleep 3 &
+wait
+```
+
+---
+
+## 🔄 16. Output Redirection
+
+```bash
+command > out.log 2>&1
+```
+
+---
+
+## ➕ 17. Append Logs
+
+```bash
+echo "New log" >> app.log
+```
+
+---
+
+## ✅ 18. Inline Condition
+
+```bash
+ping -c 1 google.com && echo "UP" || echo "DOWN"
+```
+
+---
+
+## 🔀 19. Case Statement
+
+```bash
+case "$1" in
+  start) echo "Starting service";;
+  stop) echo "Stopping service";;
+  *) echo "Usage: $0 {start|stop}";;
+esac
+```
+
+---
+
+## 🚀 20. Real DevOps Script Example
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+servers=("google.com" "github.com")
+
+for server in "${servers[@]}"
+do
+  if ping -c 1 "$server" > /dev/null 2>&1
+  then
+    echo "[INFO] $server is UP"
+  else
+    echo "[ERROR] $server is DOWN"
+  fi
+done
+```
+
+---
+
+## 🧠 Key DevOps Patterns
+
+* Always use quotes: `"${var}"`
+* Use `set -euo pipefail`
+* Prefer arrays over hardcoding
+* Use logging (`[INFO]`, `[ERROR]`)
+* Handle failures properly
+* Use loops + conditions together
+
+---
+
+## 🎯 Use Cases
+
+* CI/CD pipelines
+* Deployment scripts
+* Monitoring tools
+* Server health checks
+* Automation scripts
+
+---
+
+
