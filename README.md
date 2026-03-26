@@ -259,5 +259,5 @@ Feel free to fork this repo and improve it!
 
 ## 📌 Author
 
-Bhavesh 
+Bhavesh, 
 Made with ❤️ for DevOps learners
